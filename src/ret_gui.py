@@ -281,8 +281,8 @@ class Ui_ReticulumGUI(object):
                 "Incorrect bandwidth or transmit power field format.\nPlease try again.")
 
         try:
-            # change to r when overwrite and file path when transferred to drive
-            config = open("../../.reticulum/config", "w")
+            # try absolute path
+            config = open("../../../../.reticulum/config", "w")
 
             config.write("[reticulum]\n\n" +
                          f"  enable_transport = {enable_transport}\n\n" +
@@ -320,6 +320,9 @@ class Ui_ReticulumGUI(object):
             os.system("rnsd -vvv")
         else:
             os.system("nomadnet")
+
+    def load_profiles():
+        pass
 
 if __name__ == "__main__":
     import sys
