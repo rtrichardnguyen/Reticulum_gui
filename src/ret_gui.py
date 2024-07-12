@@ -14,6 +14,7 @@ import os
 import sys
 from config_profile import Profile
 
+
 class Ui_ReticulumGUI(object):
     def setupUi(self, ReticulumGUI):
         ReticulumGUI.setObjectName("ReticulumGUI")
@@ -114,7 +115,7 @@ class Ui_ReticulumGUI(object):
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
         self.label_7.setGeometry(QtCore.QRect(210, 40, 111, 111))
         self.label_7.setText("")
-        self.label_7.setPixmap(QtGui.QPixmap("reticulum_logo_512.png"))
+        self.label_7.setPixmap(QtGui.QPixmap("../reticulum_logo_512.png"))
         self.label_7.setScaledContents(True)
         self.label_7.setObjectName("label_7")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
@@ -208,11 +209,14 @@ class Ui_ReticulumGUI(object):
         ReticulumGUI.setTabOrder(self.uploadButton, self.descriptionText)
         ReticulumGUI.setTabOrder(self.descriptionText, self.outputText)
 
+        ### REST OF THE FUNCTION WAS PROGRAMMED MANUALLY ###
+
         profile_list = {}
         self.load_profiles(profile_list)
 
-        self.outputText.appendPlainText('test') # works
-        self.uploadButton.clicked.connect(self.parse_fields)  # mapped
+        self.outputText.appendPlainText('test') 
+        self.uploadButton.clicked.connect(self.parse_fields)
+        self.saveButton.clicked.connect(self.save_profile)
 
     def retranslateUi(self, ReticulumGUI):
         _translate = QtCore.QCoreApplication.translate
@@ -309,7 +313,7 @@ class Ui_ReticulumGUI(object):
                          f"    frequency = {frequency}\n" +
                          f"    bandwidth = {bandwidth}\n" +
                          f"    txpower = {transmit_power}\n")
-            
+
             if enable_transport:
                 config.write("    spreadingfactor = 8\n" +
                              "    codingrate = 5\n")
@@ -334,7 +338,8 @@ class Ui_ReticulumGUI(object):
             image = x.split(", ")
             image[len(image) - 1] = image[len(image) - 1].rstrip()
 
-            new_profile = Profile(image[1], image[2], image[3], image[4], image[5], image[6])
+            new_profile = Profile(
+                image[1], image[2], image[3], image[4], image[5], image[6])
             if image[1] == 'True':
                 image[1] = True
             else:
@@ -344,6 +349,35 @@ class Ui_ReticulumGUI(object):
 
         saves.close()
         print(list)
+
+    def save_profile(self):
+        enable_transport = self.jumpCheck.isChecked()
+
+        frequency = self.freqCombo.currentText()
+        spreading_factor = 0
+        coding_rate = 0
+        bandwidth = 0
+        transmit_power = 0
+        try:
+
+            if not enable_transport:
+                spreading_factor = int(self.spreadCombo.currentText())
+                coding_rate = int(self.codingCombo.currentText())
+
+            bandwidth = int(self.bandCombo.text())
+            transmit_power = int(self.txCombo.text())
+
+        except:
+            print(
+                "Incorrect bandwidth or transmit power field format.\nPlease try again.")
+
+        saves = open("../profiles.txt", "a")
+
+        profile_name = 'change_this'
+
+        saves.write(
+            f"{profile_name}, {enable_transport}, {frequency}, {spreading_factor}, {coding_rate}, {bandwidth}, {transmit_power}\n")
+        saves.close()
 
 
 if __name__ == "__main__":

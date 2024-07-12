@@ -1,2 +1,2 @@
-Profile 1, False, 868 MHz, 8, 5, 125000, 7
-Profile 2, True, 433 MHz, 7, 5, 125000, 7
+change_this, False, 2.4 GHz*, 12, 5, 1001, 10110
+change_this, False, 868 MHz, 8, 5, 125000, 7
