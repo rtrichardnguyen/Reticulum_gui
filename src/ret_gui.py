@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import re
 import os
 import sys
-import subprocess
+from config_profile import Profile
 
 class Ui_ReticulumGUI(object):
     def setupUi(self, ReticulumGUI):
@@ -207,6 +207,10 @@ class Ui_ReticulumGUI(object):
         ReticulumGUI.setTabOrder(self.loadButton, self.uploadButton)
         ReticulumGUI.setTabOrder(self.uploadButton, self.descriptionText)
         ReticulumGUI.setTabOrder(self.descriptionText, self.outputText)
+
+        profile_list = {}
+        self.load_profiles(profile_list)
+
         self.outputText.appendPlainText('test') # works
         self.uploadButton.clicked.connect(self.parse_fields)  # mapped
 
@@ -282,7 +286,7 @@ class Ui_ReticulumGUI(object):
 
         try:
             # try absolute path
-            config = open("../../../../.reticulum/config", "w")
+            config = open("../../.reticulum/config", "w")
 
             config.write("[reticulum]\n\n" +
                          f"  enable_transport = {enable_transport}\n\n" +
@@ -321,8 +325,26 @@ class Ui_ReticulumGUI(object):
         else:
             os.system("nomadnet")
 
-    def load_profiles():
-        pass
+    def load_profiles(self, list):
+
+        saves = open("../profiles.txt", "r")
+        profiles = saves.readlines()
+
+        for x in profiles:
+            image = x.split(", ")
+            image[len(image) - 1] = image[len(image) - 1].rstrip()
+
+            new_profile = Profile(image[1], image[2], image[3], image[4], image[5], image[6])
+            if image[1] == 'True':
+                image[1] = True
+            else:
+                image[1] = False
+
+            list.update({image[0]: new_profile})
+
+        saves.close()
+        print(list)
+
 
 if __name__ == "__main__":
     import sys
