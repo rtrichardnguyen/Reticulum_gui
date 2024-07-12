@@ -2,3 +2,6 @@ change_this, False, 2.4 GHz*, 12, 5, 1001, 10110
 change_this, False, 868 MHz, 8, 5, 125000, 7
 change_this, False, 868 MHz, 8, 5, 125000, 7
 Working Instance, False, 868 MHz, 8, 5, 125000, 7
+Unnamed Profile, False, 433 MHz, 7, 5, 5, 101
+Unnamed Profile, True, 433 MHz, 0, 0, 5, 101
+Unnamed Profile, True, 915 MHz, 0, 0, 5, 101
