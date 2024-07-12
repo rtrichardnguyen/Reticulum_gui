@@ -351,6 +351,12 @@ class Ui_ReticulumGUI(object):
         print(list)
 
     def save_profile(self):
+
+        profile_name = self.txCombo_2.text()
+
+        if profile_name == '':
+            profile_name = 'Unnamed Profile'
+
         enable_transport = self.jumpCheck.isChecked()
 
         frequency = self.freqCombo.currentText()
@@ -372,8 +378,6 @@ class Ui_ReticulumGUI(object):
                 "Incorrect bandwidth or transmit power field format.\nPlease try again.")
 
         saves = open("../profiles.txt", "a")
-
-        profile_name = 'change_this'
 
         saves.write(
             f"{profile_name}, {enable_transport}, {frequency}, {spreading_factor}, {coding_rate}, {bandwidth}, {transmit_power}\n")
