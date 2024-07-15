@@ -430,6 +430,19 @@
      </rect>
     </property>
    </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>450</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="maxVisibleItems">
+     <number>100</number>
+    </property>
+   </widget>
    <zorder>label_7</zorder>
    <zorder>freqCombo</zorder>
    <zorder>spreadCombo</zorder>
@@ -454,6 +467,7 @@
    <zorder>pushButton</zorder>
    <zorder>txCombo_2</zorder>
    <zorder>label_6</zorder>
+   <zorder>comboBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
