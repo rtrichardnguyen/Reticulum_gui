@@ -139,8 +139,7 @@ class Ui_ReticulumGUI(object):
         # DROP DOWN =================
 
         self.loadDropDown = QtWidgets.QComboBox(self.centralwidget)
-        self.loadDropDown.setGeometry(QtCore.QRect(190, 450, 131, 21))
-        self.loadDropDown.setMaxVisibleItems(100)
+        self.loadDropDown.setGeometry(QtCore.QRect(190, 450, 131, 24))
         self.loadDropDown.setObjectName("cloadDropDown")
 
         # END DROP DOWN =============
@@ -418,6 +417,25 @@ class Ui_ReticulumGUI(object):
 
     def fill_profile(self):
         profile = self.profile_list.get(self.loadDropDown.currentText())
+
+        if profile.is_transport == 'True':
+            self.jumpCheck.setChecked(True)
+        else:
+            self.jumpCheck.setChecked(False)
+
+        if profile.frequency == '433 MHz':
+            self.freqCombo.setCurrentIndex(0)
+        elif profile.frequency == '868 MHz':
+            self.freqCombo.setCurrentIndex(1)
+        elif profile.frequency == '915 MHz':
+            self.freqCombo.setCurrentIndex(2)
+        elif profile.frequency == '2.4 GHz*':
+            self.freqCombo.setCurrentIndex(3)
+
+        self.spreadCombo.setCurrentIndex(int(profile.spreading_factor) - 7)
+        self.codingCombo.setCurrentIndex(int(profile.coding_rate) - 5)
+        self.bandCombo.setText(profile.bandwidth)
+        self.txCombo.setText(profile.transmit_power)
 
 
 class LoadWindow(QWidget):
