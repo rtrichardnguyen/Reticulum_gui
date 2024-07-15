@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget
 import re
 import os
 import sys
@@ -211,12 +212,13 @@ class Ui_ReticulumGUI(object):
 
         ### REST OF THE FUNCTION WAS PROGRAMMED MANUALLY ###
 
-        profile_list = {}
-        self.load_profiles(profile_list)
+        self.profile_list = {}
+        self.load_profiles(self.profile_list)
 
         self.outputText.appendPlainText('test') 
         self.uploadButton.clicked.connect(self.parse_fields)
         self.saveButton.clicked.connect(self.save_profile)
+        self.loadButton.clicked.connect(self.showdialog)
 
     def retranslateUi(self, ReticulumGUI):
         _translate = QtCore.QCoreApplication.translate
@@ -333,7 +335,6 @@ class Ui_ReticulumGUI(object):
 
         saves = open("../profiles.txt", "r")
         profiles = saves.readlines()
-
         for x in profiles:
             image = x.split(", ")
             image[len(image) - 1] = image[len(image) - 1].rstrip()
@@ -379,8 +380,11 @@ class Ui_ReticulumGUI(object):
 
         saves = open("../profiles.txt", "a")
 
-        saves.write(
-            f"{profile_name}, {enable_transport}, {frequency}, {spreading_factor}, {coding_rate}, {bandwidth}, {transmit_power}\n")
+        if profile_name not in self.profile_list:
+            saves.write(
+                f"{profile_name}, {enable_transport}, {frequency}, {spreading_factor}, {coding_rate}, {bandwidth}, {transmit_power}\n")
+        else:
+            print("Needs new profile name")
         saves.close()
 
 
