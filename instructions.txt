@@ -4,7 +4,7 @@ If you enable Transport, your system will route traffic for other peers, pass an
 
 [RNode Config]
 
-\033[1mFrequency\033[0m: Specifies the operating frequency for the rnode in Hz.
+Frequency: Specifies the operating frequency for the rnode in Hz.
 
 Spreading Factor: Higher spreading factors provide longer range but lower data rates (Recommended 8).
 
