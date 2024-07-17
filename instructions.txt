@@ -1,0 +1,15 @@
+[Jump Node]
+
+If you enable Transport, your system will route traffic for other peers, pass announces and serve path requests. This should only be done for systems that are suited to act as transport nodes, ie. if they are stationary and always-on. This directive is optional and can be removed for brevity.
+
+[RNode Config]
+
+\033[1mFrequency\033[0m: Specifies the operating frequency for the rnode in Hz.
+
+Spreading Factor: Higher spreading factors provide longer range but lower data rates (Recommended 8).
+
+Coding Rate: Used for error correction in the transmission, balancing error resilience and data rate (Recommended 5).
+
+Bandwidth: A wider bandwidth allows for higher data rates but uses more spectrum (Recommended 125000).
+
+Transmit Power: Higher values increase the transmission range but also power consumption (Recommended 7).

@@ -228,7 +228,9 @@ class Ui_ReticulumGUI(object):
         self.profile_list = {}
         self.load_profiles(self.profile_list)
 
-        self.outputText.appendPlainText('test') 
+
+        instruction_file = open("../instructions.txt", "r")
+        self.outputText.appendPlainText(instruction_file.read()) 
         self.uploadButton.clicked.connect(self.parse_fields)
         self.saveButton.clicked.connect(self.save_profile)
 
@@ -256,12 +258,12 @@ class Ui_ReticulumGUI(object):
         self.codingCombo.setItemText(1, _translate("ReticulumGUI", "6"))
         self.codingCombo.setItemText(2, _translate("ReticulumGUI", "7"))
         self.codingCombo.setItemText(3, _translate("ReticulumGUI", "8"))
-        self.label.setText(_translate("ReticulumGUI", "Frequency (In Hz)"))
+        self.label.setText(_translate("ReticulumGUI", "Frequency (Hz)"))
         self.label_2.setText(_translate("ReticulumGUI", "Spreading Factor"))
         self.label_3.setText(_translate("ReticulumGUI", "Coding Rate"))
-        self.label_4.setText(_translate("ReticulumGUI", "Bandwidth (In KHz)"))
+        self.label_4.setText(_translate("ReticulumGUI", "Bandwidth (KHz)"))
         self.label_5.setText(_translate(
-            "ReticulumGUI", "Transmit Power (In dBm)"))
+            "ReticulumGUI", "Transmit Power (dBm)"))
         self.jumpCheck.setText(_translate("ReticulumGUI", "Jump Node?"))
         self.uploadButton.setText(_translate("ReticulumGUI", "Upload..."))
         self.saveButton.setText(_translate("ReticulumGUI", "Save..."))

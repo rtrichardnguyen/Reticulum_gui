@@ -7,3 +7,4 @@ Unnamed Profile2, True, 433 MHz, 0, 0, 5, 101
 Unnamed Profile3, True, 915 MHz, 0, 0, 5, 101
 new, False, 433 MHz, 7, 5, 5, 5
 2.4 example, False, 2.4 GHz*, 8, 5, 125000, 7
+Unnamed Profile, False, 868 MHz, 8, 8, 125000, 7
