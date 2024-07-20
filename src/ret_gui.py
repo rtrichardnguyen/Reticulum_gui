@@ -228,14 +228,13 @@ class Ui_ReticulumGUI(object):
         self.profile_list = {}
         self.load_profiles(self.profile_list)
 
-
         instruction_file = open("../instructions.txt", "r")
         self.outputText.appendPlainText(instruction_file.read()) 
         self.uploadButton.clicked.connect(self.parse_fields)
         self.saveButton.clicked.connect(self.save_profile)
 
         self.w = None  # No external window yet.
-        self.loadButton.clicked.connect(self.show_load)
+        self.loadButton.clicked.connect(self.delete_profile)
 
         self.loadDropDown.addItems([*self.profile_list])
         self.loadDropDown.currentIndexChanged.connect(self.fill_profile)
@@ -265,12 +264,12 @@ class Ui_ReticulumGUI(object):
         self.label_5.setText(_translate(
             "ReticulumGUI", "Transmit Power (dBm)"))
         self.jumpCheck.setText(_translate("ReticulumGUI", "Jump Node?"))
-        self.uploadButton.setText(_translate("ReticulumGUI", "Upload..."))
-        self.saveButton.setText(_translate("ReticulumGUI", "Save..."))
-        self.loadButton.setText(_translate("ReticulumGUI", "Load..."))
+        self.uploadButton.setText(_translate("ReticulumGUI", "Upload"))
+        self.saveButton.setText(_translate("ReticulumGUI", "Save"))
+        self.loadButton.setText(_translate("ReticulumGUI", "Delete"))
         self.label_6.setText(_translate("ReticulumGUI", "Reticulum GUI"))
         self.label_8.setText(_translate("ReticulumGUI", "Output:"))
-        self.pushButton.setText(_translate("ReticulumGUI", "Scan..."))
+        self.pushButton.setText(_translate("ReticulumGUI", "Scan"))
         self.menuReticulum_GUI.setTitle(_translate("ReticulumGUI", "Menu"))
         self.menuNew_Tab.setTitle(_translate("ReticulumGUI", "New Tab"))
         self.actionTest.setText(_translate("ReticulumGUI", "New.."))
@@ -439,6 +438,40 @@ class Ui_ReticulumGUI(object):
         self.bandCombo.setText(profile.bandwidth)
         self.txCombo.setText(profile.transmit_power)
 
+    def delete_profile(self):
+        profile_name = self.loadDropDown.currentText()
+
+        if profile_name == 'Select Profile' or profile_name == 'Default':
+            print("Profile cannot be deleted, please select another.")
+            return
+
+        if profile_name:
+            # Remove the profile from the dictionary
+            if profile_name in self.profile_list:
+                del self.profile_list[profile_name]
+
+            # Rewrite the profiles.txt file without the deleted profile
+            with open("../profiles.txt", "w") as saves:
+                for name, profile in self.profile_list.items():
+                    saves.write(f"{name}, {profile.is_transport}, {profile.frequency}, {profile.spreading_factor}, {profile.coding_rate}, {profile.bandwidth}, {profile.transmit_power}\n")
+
+            # Remove the profile from the drop-down list
+            index = self.loadDropDown.findText(profile_name)
+            if index != -1:
+                self.loadDropDown.removeItem(index)
+
+            # Optionally, clear the fields if the deleted profile was selected
+            self.clear_fields()
+            print(f"Profile '{profile_name}' deleted successfully.")
+
+    def clear_fields(self):
+        self.jumpCheck.setChecked(False)
+        self.freqCombo.setCurrentIndex(0)
+        self.spreadCombo.setCurrentIndex(0)
+        self.codingCombo.setCurrentIndex(0)
+        self.bandCombo.clear()
+        self.txCombo.clear()
+        self.txCombo_2.clear()
 
 class LoadWindow(QWidget):
     def __init__(self):
