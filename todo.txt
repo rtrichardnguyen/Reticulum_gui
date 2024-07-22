@@ -1,0 +1,11 @@
+Resizing
+
+Meshchat button
+
+New tab for config and profile edit
+
+Exit button
+
+Scan/Upload/Progress Bar
+
+Profile Naming Bar
