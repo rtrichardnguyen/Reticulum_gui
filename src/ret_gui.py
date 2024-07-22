@@ -68,14 +68,14 @@ class Ui_ReticulumGUI(object):
         self.jumpCheck = QtWidgets.QCheckBox(self.centralwidget)
         self.jumpCheck.setGeometry(QtCore.QRect(10, 110, 111, 31))
         self.jumpCheck.setObjectName("jumpCheck")
-        self.descriptionText = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.descriptionText.setGeometry(QtCore.QRect(383, 30, 331, 91))
-        self.descriptionText.setReadOnly(True)
-        self.descriptionText.setObjectName("descriptionText")
         self.outputText = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.outputText.setGeometry(QtCore.QRect(380, 140, 331, 291))
+        self.outputText.setGeometry(QtCore.QRect(383, 30, 331, 91))
         self.outputText.setReadOnly(True)
-        self.outputText.setObjectName("outputText")
+        self.outputText.setObjectName("descriptionText")
+        self.descriptionText = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.descriptionText.setGeometry(QtCore.QRect(380, 140, 331, 291))
+        self.descriptionText.setReadOnly(True)
+        self.descriptionText.setObjectName("outputText")
         self.uploadButton = QtWidgets.QPushButton(self.centralwidget)
         self.uploadButton.setGeometry(QtCore.QRect(640, 450, 75, 24))
         self.uploadButton.setObjectName("uploadButton")
@@ -169,7 +169,7 @@ class Ui_ReticulumGUI(object):
         self.txCombo_2.raise_()
         self.label_6.raise_()
 
-        self.loadDropDown.raise_() #edited
+        self.loadDropDown.raise_()  # edited
 
         ReticulumGUI.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(ReticulumGUI)
@@ -224,21 +224,29 @@ class Ui_ReticulumGUI(object):
         ReticulumGUI.setTabOrder(self.descriptionText, self.outputText)
 
         ### REST OF THE FUNCTION WAS PROGRAMMED MANUALLY ###
+        os.system("echo Installing Reticulum and NomadNet >> ../output.txt")
+        os.system("pip install rns >> ../output.txt")
+        os.system("pip install nomadnet >> ../output.txt")
+
+        output_file = open("../output.txt", "r")
+        self.descriptionText.appendPlainText(output_file.read())
+        output_file.close()
+        os.system("rm ../output.txt")
 
         self.profile_list = {}
         self.load_profiles(self.profile_list)
 
         instruction_file = open("../instructions.txt", "r")
-        self.outputText.appendPlainText(instruction_file.read()) 
+        self.outputText.appendPlainText(instruction_file.read())
         self.uploadButton.clicked.connect(self.parse_fields)
         self.saveButton.clicked.connect(self.save_profile)
+        instruction_file.close()
 
         self.w = None  # No external window yet.
         self.loadButton.clicked.connect(self.delete_profile)
 
         self.loadDropDown.addItems([*self.profile_list])
         self.loadDropDown.currentIndexChanged.connect(self.fill_profile)
-
 
     def retranslateUi(self, ReticulumGUI):
         _translate = QtCore.QCoreApplication.translate
@@ -307,8 +315,9 @@ class Ui_ReticulumGUI(object):
                 frequency = int(re.search('[0-9]{3}', frequency).group())
 
         except:
-            print(
-                "Incorrect bandwidth or transmit power field format.\nPlease try again.")
+            self.descriptionText.appendPlainText(
+                "Incorrect bandwidth or transmit power field format.")
+            return
 
         try:
             # try absolute path
@@ -344,7 +353,7 @@ class Ui_ReticulumGUI(object):
                              f"    codingrate = {coding_rate}\n")
             config.close()
         finally:
-            print("File writing finished")
+            self.descriptionText.appendPlainText("File writing finished")
 
         if enable_transport:
             os.system("rnsd -vvv")
@@ -369,7 +378,6 @@ class Ui_ReticulumGUI(object):
             list.update({image[0]: new_profile})
 
         saves.close()
-        print(list)
 
     def save_profile(self):
 
@@ -395,17 +403,22 @@ class Ui_ReticulumGUI(object):
             transmit_power = int(self.txCombo.text())
 
         except:
-            print(
-                "Incorrect bandwidth or transmit power field format.\nPlease try again.")
+            self.descriptionText.appendPlainText(
+                "Incorrect bandwidth or transmit power field format.")
 
         saves = open("../profiles.txt", "a")
 
-        if profile_name not in self.profile_list:
+        if profile_name not in list(self.profile_list.keys()):
             saves.write(
                 f"{profile_name}, {enable_transport}, {frequency}, {spreading_factor}, {coding_rate}, {bandwidth}, {transmit_power}\n")
         else:
-            print("Needs new profile name")
+            self.descriptionText.appendPlainText("Needs new profile name")
+            return
         saves.close()
+
+        self.loadDropDown.addItem(profile_name)
+        self.profile_list.update({profile_name: Profile(
+            enable_transport, frequency, spreading_factor, coding_rate, bandwidth, transmit_power)})
 
     def show_load(self, checked):
         if self.w is None:
@@ -442,7 +455,8 @@ class Ui_ReticulumGUI(object):
         profile_name = self.loadDropDown.currentText()
 
         if profile_name == 'Select Profile' or profile_name == 'Default':
-            print("Profile cannot be deleted, please select another.")
+            self.descriptionText.appendPlainText(
+                "Profile cannot be deleted, please select another.")
             return
 
         if profile_name:
@@ -453,7 +467,8 @@ class Ui_ReticulumGUI(object):
             # Rewrite the profiles.txt file without the deleted profile
             with open("../profiles.txt", "w") as saves:
                 for name, profile in self.profile_list.items():
-                    saves.write(f"{name}, {profile.is_transport}, {profile.frequency}, {profile.spreading_factor}, {profile.coding_rate}, {profile.bandwidth}, {profile.transmit_power}\n")
+                    saves.write(
+                        f"{name}, {profile.is_transport}, {profile.frequency}, {profile.spreading_factor}, {profile.coding_rate}, {profile.bandwidth}, {profile.transmit_power}\n")
 
             # Remove the profile from the drop-down list
             index = self.loadDropDown.findText(profile_name)
@@ -462,7 +477,8 @@ class Ui_ReticulumGUI(object):
 
             # Optionally, clear the fields if the deleted profile was selected
             self.clear_fields()
-            print(f"Profile '{profile_name}' deleted successfully.")
+            self.descriptionText.appendPlainText(
+                f"Profile '{profile_name}' deleted successfully.")
 
     def clear_fields(self):
         self.jumpCheck.setChecked(False)
@@ -473,6 +489,7 @@ class Ui_ReticulumGUI(object):
         self.txCombo.clear()
         self.txCombo_2.clear()
 
+
 class LoadWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -480,6 +497,7 @@ class LoadWindow(QWidget):
         self.label = QLabel("Load Window")
         layout.addWidget(self.label)
         self.setLayout(layout)
+
 
 class LoadDrop(QtWidgets.QToolButton):
     def __init__(self, parent=None):
@@ -489,6 +507,7 @@ class LoadDrop(QtWidgets.QToolButton):
         self.triggered.connect(self.setDefaultAction)
 
         return None
+
 
 if __name__ == "__main__":
     import sys
