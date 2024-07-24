@@ -9,8 +9,8 @@
 
 # pyuic5 -x ui_file.ui -o py_file.py
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget
 import re
 import os
 import sys
@@ -23,7 +23,7 @@ class Ui_ReticulumGUI(object):
         ReticulumGUI.resize(732, 560)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(
-            "../../Downloads/reticulum_logo_512.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            "../../Downloads/reticulum_logo_512.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         ReticulumGUI.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(ReticulumGUI)
         self.centralwidget.setObjectName("centralwidget")
@@ -93,13 +93,13 @@ class Ui_ReticulumGUI(object):
         self.txCombo.setObjectName("txCombo")
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setGeometry(QtCore.QRect(323, 20, 20, 451))
-        self.line.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line.setObjectName("line")
         self.line_2 = QtWidgets.QFrame(self.centralwidget)
         self.line_2.setGeometry(QtCore.QRect(380, 120, 331, 16))
-        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setFrameShape(QtWidgets.QFrame.Shape.HLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
         self.line_2.setObjectName("line_2")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(20, 10, 291, 41))
@@ -110,7 +110,7 @@ class Ui_ReticulumGUI(object):
         font.setItalic(True)
         font.setWeight(75)
         self.label_6.setFont(font)
-        self.label_6.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.label_6.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.label_6.setAutoFillBackground(False)
         self.label_6.setScaledContents(False)
         self.label_6.setObjectName("label_6")
@@ -183,13 +183,13 @@ class Ui_ReticulumGUI(object):
         self.statusbar = QtWidgets.QStatusBar(ReticulumGUI)
         self.statusbar.setObjectName("statusbar")
         ReticulumGUI.setStatusBar(self.statusbar)
-        self.actionTest = QtWidgets.QAction(ReticulumGUI)
+        self.actionTest = QtGui.QAction(ReticulumGUI)
         self.actionTest.setObjectName("actionTest")
-        self.actionTest_2 = QtWidgets.QAction(ReticulumGUI)
+        self.actionTest_2 = QtGui.QAction(ReticulumGUI)
         self.actionTest_2.setObjectName("actionTest_2")
-        self.actionHelp = QtWidgets.QAction(ReticulumGUI)
+        self.actionHelp = QtGui.QAction(ReticulumGUI)
         self.actionHelp.setObjectName("actionHelp")
-        self.actionExit = QtWidgets.QAction(ReticulumGUI)
+        self.actionExit = QtGui.QAction(ReticulumGUI)
         self.actionExit.setObjectName("actionExit")
         self.menuReticulum_GUI.addAction(self.actionTest)
         self.menuReticulum_GUI.addAction(self.actionTest_2)
@@ -205,9 +205,9 @@ class Ui_ReticulumGUI(object):
         self.label_8.setBuddy(self.descriptionText)
 
         self.retranslateUi(ReticulumGUI)
-        self.jumpCheck.toggled['bool'].connect(
+        self.jumpCheck.toggled.connect(
             self.spreadCombo.setHidden)  # type: ignore
-        self.jumpCheck.toggled['bool'].connect(
+        self.jumpCheck.toggled.connect(
             self.codingCombo.setHidden)  # type: ignore
         self.uploadButton.clicked.connect(
             self.progressBar.show)  # type: ignore
@@ -503,7 +503,7 @@ class LoadDrop(QtWidgets.QToolButton):
     def __init__(self, parent=None):
         ''' Constructor '''
         super(LoadDrop, self).__init__(parent)
-        self.setPopupMode(self.MenuButtonPopup)
+        self.setPopupMode(self.ToolButtonPopupMode.MenuButtonPopup)
         self.triggered.connect(self.setDefaultAction)
 
         return None
@@ -516,4 +516,4 @@ if __name__ == "__main__":
     ui = Ui_ReticulumGUI()
     ui.setupUi(ReticulumGUI)
     ReticulumGUI.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
