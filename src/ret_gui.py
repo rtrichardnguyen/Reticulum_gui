@@ -14,6 +14,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBo
 import re
 import os
 import sys
+import serial.tools.list_ports
 from config_profile import Profile
 
 
@@ -231,6 +232,7 @@ class Ui_ReticulumGUI(object):
         output_file = open("../output.txt", "r")
         self.descriptionText.appendPlainText(output_file.read())
         output_file.close()
+        self.descriptionText.appendPlainText("Finished installing RNS and NomadNet")
         os.system("rm ../output.txt")
 
         self.profile_list = {}
@@ -247,6 +249,8 @@ class Ui_ReticulumGUI(object):
 
         self.loadDropDown.addItems([*self.profile_list])
         self.loadDropDown.currentIndexChanged.connect(self.fill_profile)
+
+        self.pushButton.clicked.connect(self.scan_ports)
 
     def retranslateUi(self, ReticulumGUI):
         _translate = QtCore.QCoreApplication.translate
@@ -488,6 +492,11 @@ class Ui_ReticulumGUI(object):
         self.bandCombo.clear()
         self.txCombo.clear()
         self.txCombo_2.clear()
+
+    def scan_ports(self):
+        ports = serial.tools.list_ports.comports()
+        for port, desc, hwid in sorted(ports):
+            self.descriptionText.appendPlainText("{}: {} [{}]".format(port, desc, hwid))
 
 
 class LoadWindow(QWidget):
