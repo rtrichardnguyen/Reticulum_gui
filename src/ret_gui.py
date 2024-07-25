@@ -78,8 +78,14 @@ class Ui_ReticulumGUI(object):
         self.descriptionText.setReadOnly(True)
         self.descriptionText.setObjectName("outputText")
         self.uploadButton = QtWidgets.QPushButton(self.centralwidget)
-        self.uploadButton.setGeometry(QtCore.QRect(640, 450, 75, 24))
-        self.uploadButton.setObjectName("uploadButton")
+        self.uploadButton.setGeometry(QtCore.QRect(380, 450, 91, 24))
+        self.uploadButton.setObjectName("meshchat_button")
+        self.meshchat_button = QtWidgets.QPushButton(self.centralwidget)
+        self.meshchat_button.setGeometry(QtCore.QRect(500, 450, 91, 24))
+        self.meshchat_button.setObjectName("meshchat_button")
+        self.jump_button = QtWidgets.QPushButton(self.centralwidget)
+        self.jump_button.setGeometry(QtCore.QRect(620, 450, 91, 24))
+        self.jump_button.setObjectName("jump_button")
         self.saveButton = QtWidgets.QPushButton(self.centralwidget)
         self.saveButton.setGeometry(QtCore.QRect(10, 450, 75, 24))
         self.saveButton.setObjectName("saveButton")
@@ -124,17 +130,19 @@ class Ui_ReticulumGUI(object):
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(390, 10, 211, 16))
         self.label_8.setObjectName("label_8")
+        """
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setGeometry(QtCore.QRect(380, 450, 251, 23))
         self.progressBar.setProperty("value", 0)
         self.progressBar.setTextVisible(True)
         self.progressBar.setInvertedAppearance(False)
         self.progressBar.setObjectName("progressBar")
+        """
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(10, 360, 75, 24))
+        self.pushButton.setGeometry(QtCore.QRect(10, 370, 75, 24))
         self.pushButton.setObjectName("pushButton")
         self.txCombo_2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.txCombo_2.setGeometry(QtCore.QRect(10, 390, 281, 21))
+        self.txCombo_2.setGeometry(QtCore.QRect(10, 410, 281, 21))
         self.txCombo_2.setObjectName("txCombo_2")
 
         # DROP DOWN =================
@@ -158,6 +166,8 @@ class Ui_ReticulumGUI(object):
         self.descriptionText.raise_()
         self.outputText.raise_()
         self.uploadButton.raise_()
+        self.meshchat_button.raise_()
+        self.jump_button.raise_()
         self.saveButton.raise_()
         self.loadButton.raise_()
         self.bandCombo.raise_()
@@ -165,7 +175,7 @@ class Ui_ReticulumGUI(object):
         self.line.raise_()
         self.line_2.raise_()
         self.label_8.raise_()
-        self.progressBar.raise_()
+        #self.progressBar.raise_()
         self.pushButton.raise_()
         self.txCombo_2.raise_()
         self.label_6.raise_()
@@ -210,8 +220,8 @@ class Ui_ReticulumGUI(object):
             self.spreadCombo.setHidden)  # type: ignore
         self.jumpCheck.toggled.connect(
             self.codingCombo.setHidden)  # type: ignore
-        self.uploadButton.clicked.connect(
-            self.progressBar.show)  # type: ignore
+        #self.uploadButton.clicked.connect(
+        #    self.progressBar.show)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(ReticulumGUI)
         ReticulumGUI.setTabOrder(self.jumpCheck, self.freqCombo)
         ReticulumGUI.setTabOrder(self.freqCombo, self.spreadCombo)
@@ -232,7 +242,7 @@ class Ui_ReticulumGUI(object):
         output_file = open("../output.txt", "r")
         self.descriptionText.appendPlainText(output_file.read())
         output_file.close()
-        self.descriptionText.appendPlainText("Finished installing RNS and NomadNet")
+        self.descriptionText.appendPlainText("Finished installing RNS and NomadNet\n")
         os.system("rm ../output.txt")
 
         self.profile_list = {}
@@ -240,7 +250,11 @@ class Ui_ReticulumGUI(object):
 
         instruction_file = open("../instructions.txt", "r")
         self.outputText.appendPlainText(instruction_file.read())
-        self.uploadButton.clicked.connect(self.parse_fields)
+
+        self.uploadButton.clicked.connect(self.run_nomadnet)
+        self.meshchat_button.clicked.connect(self.run_meshchat)
+        self.jump_button.clicked.connect(self.run_rnsd)
+
         self.saveButton.clicked.connect(self.save_profile)
         instruction_file.close()
 
@@ -276,7 +290,10 @@ class Ui_ReticulumGUI(object):
         self.label_5.setText(_translate(
             "ReticulumGUI", "Transmit Power (dBm)"))
         self.jumpCheck.setText(_translate("ReticulumGUI", "Jump Node?"))
-        self.uploadButton.setText(_translate("ReticulumGUI", "Upload"))
+        self.uploadButton.setText(_translate("ReticulumGUI", "NomadNet"))
+        self.meshchat_button.setText(_translate("ReticulumGUI", "MeshChat"))
+        self.jump_button.setText(_translate("ReticulumGUI", "Jump"))
+        self.txCombo_2.setText(_translate("ReticulumGUI", "Profile Name"))
         self.saveButton.setText(_translate("ReticulumGUI", "Save"))
         self.loadButton.setText(_translate("ReticulumGUI", "Delete"))
         self.label_6.setText(_translate("ReticulumGUI", "Reticulum GUI"))
@@ -288,6 +305,18 @@ class Ui_ReticulumGUI(object):
         self.actionTest_2.setText(_translate("ReticulumGUI", "Edit.."))
         self.actionHelp.setText(_translate("ReticulumGUI", "Help.."))
         self.actionExit.setText(_translate("ReticulumGUI", "Exit."))
+
+    def run_nomadnet(self):
+        self.parse_fields()
+        os.system("nomadnet")
+
+    def run_meshchat(self):
+        self.parse_fields()
+        os.system("python3 ../reticulum-meshchat/meshchat.py")
+
+    def run_rnsd(self):
+        self.parse_fields()
+        os.system("rnsd -vvv")
 
     def parse_fields(self):
 
@@ -320,7 +349,7 @@ class Ui_ReticulumGUI(object):
 
         except:
             self.descriptionText.appendPlainText(
-                "Incorrect bandwidth or transmit power field format.")
+                "Incorrect bandwidth or transmit power field format.\n")
             return
 
         try:
@@ -357,12 +386,7 @@ class Ui_ReticulumGUI(object):
                              f"    codingrate = {coding_rate}\n")
             config.close()
         finally:
-            self.descriptionText.appendPlainText("File writing finished")
-
-        if enable_transport:
-            os.system("rnsd -vvv")
-        else:
-            os.system("nomadnet")
+            self.descriptionText.appendPlainText("File writing finished\n")
 
     def load_profiles(self, list):
 
@@ -408,7 +432,7 @@ class Ui_ReticulumGUI(object):
 
         except:
             self.descriptionText.appendPlainText(
-                "Incorrect bandwidth or transmit power field format.")
+                "Incorrect bandwidth or transmit power field format.\n")
 
         saves = open("../profiles.txt", "a")
 
@@ -416,13 +440,14 @@ class Ui_ReticulumGUI(object):
             saves.write(
                 f"{profile_name}, {enable_transport}, {frequency}, {spreading_factor}, {coding_rate}, {bandwidth}, {transmit_power}\n")
         else:
-            self.descriptionText.appendPlainText("Needs new profile name")
+            self.descriptionText.appendPlainText("Needs new profile name\n")
             return
         saves.close()
 
         self.loadDropDown.addItem(profile_name)
         self.profile_list.update({profile_name: Profile(
             enable_transport, frequency, spreading_factor, coding_rate, bandwidth, transmit_power)})
+        self.descriptionText.appendPlainText(f"Profile '{profile_name}' added succesfully.\n")
 
     def show_load(self, checked):
         if self.w is None:
@@ -452,15 +477,15 @@ class Ui_ReticulumGUI(object):
 
         self.spreadCombo.setCurrentIndex(int(profile.spreading_factor) - 7)
         self.codingCombo.setCurrentIndex(int(profile.coding_rate) - 5)
-        self.bandCombo.setText(profile.bandwidth)
-        self.txCombo.setText(profile.transmit_power)
+        self.bandCombo.setText(str(profile.bandwidth))
+        self.txCombo.setText(str(profile.transmit_power))
 
     def delete_profile(self):
         profile_name = self.loadDropDown.currentText()
 
         if profile_name == 'Select Profile' or profile_name == 'Default':
             self.descriptionText.appendPlainText(
-                "Profile cannot be deleted, please select another.")
+                "Profile cannot be deleted, please select another.\n")
             return
 
         if profile_name:
@@ -482,7 +507,7 @@ class Ui_ReticulumGUI(object):
             # Optionally, clear the fields if the deleted profile was selected
             self.clear_fields()
             self.descriptionText.appendPlainText(
-                f"Profile '{profile_name}' deleted successfully.")
+                f"Profile '{profile_name}' deleted successfully.\n")
 
     def clear_fields(self):
         self.jumpCheck.setChecked(False)
@@ -496,7 +521,7 @@ class Ui_ReticulumGUI(object):
     def scan_ports(self):
         ports = serial.tools.list_ports.comports()
         for port, desc, hwid in sorted(ports):
-            self.descriptionText.appendPlainText("{}: {} [{}]".format(port, desc, hwid))
+            self.descriptionText.appendPlainText("{}: {} [{}]\n".format(port, desc, hwid))
 
 
 class LoadWindow(QWidget):

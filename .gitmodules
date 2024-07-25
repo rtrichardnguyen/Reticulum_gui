@@ -1,0 +1,3 @@
+[submodule "reticulum-meshchat"]
+	path = reticulum-meshchat
+	url = https://github.com/liamcottle/reticulum-meshchat.git
