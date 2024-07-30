@@ -6,10 +6,10 @@ If you enable Transport, your system will route traffic for other peers, pass an
 
 Frequency: Specifies the operating frequency for the rnode in Hz.
 
-Spreading Factor: Higher spreading factors provide longer range but lower data rates (Recommended 8).
+Spreading Factor: Higher spreading factors provide longer range but lower data rates.
 
-Coding Rate: Used for error correction in the transmission, balancing error resilience and data rate (Recommended 5).
+Coding Rate: Used for error correction in the transmission, balancing error resilience and data rate.
 
-Bandwidth: A wider bandwidth allows for higher data rates but uses more spectrum (Recommended 125000).
+Bandwidth: A wider bandwidth allows for higher data rates but uses more spectrum.
 
-Transmit Power: Higher values increase the transmission range but also power consumption (Recommended 7).
+Transmit Power: Higher values increase the transmission range but also power consumption.

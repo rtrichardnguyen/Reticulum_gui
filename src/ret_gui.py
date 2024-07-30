@@ -29,14 +29,14 @@ class Ui_ReticulumGUI(object):
         self.centralwidget = QtWidgets.QWidget(ReticulumGUI)
         self.centralwidget.setObjectName("centralwidget")
         self.freqCombo = QtWidgets.QComboBox(self.centralwidget)
-        self.freqCombo.setGeometry(QtCore.QRect(180, 160, 101, 31))
+        self.freqCombo.setGeometry(QtCore.QRect(180, 170, 101, 31))
         self.freqCombo.setObjectName("freqCombo")
         self.freqCombo.addItem("")
         self.freqCombo.addItem("")
         self.freqCombo.addItem("")
         self.freqCombo.addItem("")
         self.spreadCombo = QtWidgets.QComboBox(self.centralwidget)
-        self.spreadCombo.setGeometry(QtCore.QRect(180, 200, 101, 31))
+        self.spreadCombo.setGeometry(QtCore.QRect(180, 210, 101, 31))
         self.spreadCombo.setObjectName("spreadCombo")
         self.spreadCombo.addItem("")
         self.spreadCombo.addItem("")
@@ -45,29 +45,29 @@ class Ui_ReticulumGUI(object):
         self.spreadCombo.addItem("")
         self.spreadCombo.addItem("")
         self.codingCombo = QtWidgets.QComboBox(self.centralwidget)
-        self.codingCombo.setGeometry(QtCore.QRect(180, 240, 101, 31))
+        self.codingCombo.setGeometry(QtCore.QRect(180, 250, 101, 31))
         self.codingCombo.setObjectName("codingCombo")
         self.codingCombo.addItem("")
         self.codingCombo.addItem("")
         self.codingCombo.addItem("")
         self.codingCombo.addItem("")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 170, 161, 16))
+        self.label.setGeometry(QtCore.QRect(10, 180, 161, 16))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(10, 210, 161, 16))
+        self.label_2.setGeometry(QtCore.QRect(10, 220, 161, 16))
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(10, 250, 161, 16))
+        self.label_3.setGeometry(QtCore.QRect(10, 260, 161, 16))
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(10, 290, 161, 16))
+        self.label_4.setGeometry(QtCore.QRect(10, 300, 161, 16))
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(10, 330, 161, 16))
+        self.label_5.setGeometry(QtCore.QRect(10, 340, 161, 16))
         self.label_5.setObjectName("label_5")
         self.jumpCheck = QtWidgets.QCheckBox(self.centralwidget)
-        self.jumpCheck.setGeometry(QtCore.QRect(10, 110, 111, 31))
+        self.jumpCheck.setGeometry(QtCore.QRect(10, 130, 111, 31))
         self.jumpCheck.setObjectName("jumpCheck")
         self.outputText = QtWidgets.QPlainTextEdit(self.centralwidget)
         self.outputText.setGeometry(QtCore.QRect(383, 30, 331, 91))
@@ -93,10 +93,10 @@ class Ui_ReticulumGUI(object):
         self.loadButton.setGeometry(QtCore.QRect(100, 450, 75, 24))
         self.loadButton.setObjectName("loadButton")
         self.bandCombo = QtWidgets.QLineEdit(self.centralwidget)
-        self.bandCombo.setGeometry(QtCore.QRect(180, 290, 113, 21))
+        self.bandCombo.setGeometry(QtCore.QRect(180, 300, 113, 21))
         self.bandCombo.setObjectName("bandCombo")
         self.txCombo = QtWidgets.QLineEdit(self.centralwidget)
-        self.txCombo.setGeometry(QtCore.QRect(180, 330, 113, 21))
+        self.txCombo.setGeometry(QtCore.QRect(180, 340, 113, 21))
         self.txCombo.setObjectName("txCombo")
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setGeometry(QtCore.QRect(323, 20, 20, 451))
@@ -139,7 +139,7 @@ class Ui_ReticulumGUI(object):
         self.progressBar.setObjectName("progressBar")
         """
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(10, 370, 75, 24))
+        self.pushButton.setGeometry(QtCore.QRect(10, 80, 75, 24))
         self.pushButton.setObjectName("pushButton")
         self.txCombo_2 = QtWidgets.QLineEdit(self.centralwidget)
         self.txCombo_2.setGeometry(QtCore.QRect(10, 410, 281, 21))
@@ -264,7 +264,7 @@ class Ui_ReticulumGUI(object):
         self.loadDropDown.addItems([*self.profile_list])
         self.loadDropDown.currentIndexChanged.connect(self.fill_profile)
 
-        self.pushButton.clicked.connect(self.scan_ports)
+        self.pushButton.clicked.connect(self.flash_ports)
 
     def retranslateUi(self, ReticulumGUI):
         _translate = QtCore.QCoreApplication.translate
@@ -292,13 +292,13 @@ class Ui_ReticulumGUI(object):
         self.jumpCheck.setText(_translate("ReticulumGUI", "Jump Node?"))
         self.uploadButton.setText(_translate("ReticulumGUI", "NomadNet"))
         self.meshchat_button.setText(_translate("ReticulumGUI", "MeshChat"))
-        self.jump_button.setText(_translate("ReticulumGUI", "Jump"))
+        self.jump_button.setText(_translate("ReticulumGUI", "Terminal"))
         self.txCombo_2.setText(_translate("ReticulumGUI", "Profile Name"))
         self.saveButton.setText(_translate("ReticulumGUI", "Save"))
         self.loadButton.setText(_translate("ReticulumGUI", "Delete"))
         self.label_6.setText(_translate("ReticulumGUI", "Reticulum GUI"))
         self.label_8.setText(_translate("ReticulumGUI", "Output:"))
-        self.pushButton.setText(_translate("ReticulumGUI", "Scan"))
+        self.pushButton.setText(_translate("ReticulumGUI", "Flash"))
         self.menuReticulum_GUI.setTitle(_translate("ReticulumGUI", "Menu"))
         self.menuNew_Tab.setTitle(_translate("ReticulumGUI", "New Tab"))
         self.actionTest.setText(_translate("ReticulumGUI", "New.."))
@@ -307,16 +307,16 @@ class Ui_ReticulumGUI(object):
         self.actionExit.setText(_translate("ReticulumGUI", "Exit."))
 
     def run_nomadnet(self):
-        self.parse_fields()
-        os.system("nomadnet")
+        if self.parse_fields():
+            os.system("nomadnet")
 
     def run_meshchat(self):
-        self.parse_fields()
-        os.system("python3 ../reticulum-meshchat/meshchat.py")
+        if self.parse_fields():
+            os.system("python3 ../reticulum-meshchat/meshchat.py")
 
     def run_rnsd(self):
-        self.parse_fields()
-        os.system("rnsd -vvv")
+        if self.parse_fields():
+            os.system("rnsd -vvv")
 
     def parse_fields(self):
 
@@ -336,6 +336,9 @@ class Ui_ReticulumGUI(object):
             bandwidth = int(self.bandCombo.text())
             transmit_power = int(self.txCombo.text())
 
+            print(bandwidth)
+            print(transmit_power)
+
             if frequency == '2.4 GHz*':
                 frequency = 240000000000  # correct this
             elif frequency == '433 MHz':
@@ -350,7 +353,7 @@ class Ui_ReticulumGUI(object):
         except:
             self.descriptionText.appendPlainText(
                 "Incorrect bandwidth or transmit power field format.\n")
-            return
+            return False
 
         try:
             # try absolute path
@@ -387,6 +390,7 @@ class Ui_ReticulumGUI(object):
             config.close()
         finally:
             self.descriptionText.appendPlainText("File writing finished\n")
+            return True
 
     def load_profiles(self, list):
 
@@ -518,10 +522,12 @@ class Ui_ReticulumGUI(object):
         self.txCombo.clear()
         self.txCombo_2.clear()
 
-    def scan_ports(self):
+    def flash_ports(self):
         ports = serial.tools.list_ports.comports()
+        self.descriptionText.appendPlainText("Found Ports:\n")
         for port, desc, hwid in sorted(ports):
             self.descriptionText.appendPlainText("{}: {} [{}]\n".format(port, desc, hwid))
+        os.system("rnodeconf --autoinstall")
 
 
 class LoadWindow(QWidget):
