@@ -208,10 +208,10 @@ class Ui_ReticulumGUI(object):
         self.label_8.setBuddy(self.descriptionText)
 
         self.retranslateUi(ReticulumGUI)
-        self.jumpCheck.toggled.connect(
-            self.spreadCombo.setHidden)  # type: ignore
-        self.jumpCheck.toggled.connect(
-            self.codingCombo.setHidden)  # type: ignore
+        #self.jumpCheck.toggled.connect(
+        #    self.spreadCombo.setHidden)  # type: ignore
+        #self.jumpCheck.toggled.connect(
+        #    self.codingCombo.setHidden)  # type: ignore
         #self.uploadButton.clicked.connect(
         #    self.progressBar.show)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(ReticulumGUI)
@@ -444,15 +444,6 @@ class Ui_ReticulumGUI(object):
         self.profile_list.update({profile_name: Profile(
             enable_transport, frequency, spreading_factor, coding_rate, bandwidth, transmit_power)})
         self.descriptionText.appendPlainText(f"Profile '{profile_name}' added succesfully.\n")
-
-    def show_load(self, checked):
-        if self.w is None:
-            self.w = LoadWindow()
-            self.w.show()
-
-        else:
-            self.w.close()  # Close window.
-            self.w = None  # Discard reference.
 
     def fill_profile(self):
         profile = self.profile_list.get(self.loadDropDown.currentText())
