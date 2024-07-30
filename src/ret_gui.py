@@ -130,14 +130,6 @@ class Ui_ReticulumGUI(object):
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(390, 10, 211, 16))
         self.label_8.setObjectName("label_8")
-        """
-        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(380, 450, 251, 23))
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setTextVisible(True)
-        self.progressBar.setInvertedAppearance(False)
-        self.progressBar.setObjectName("progressBar")
-        """
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(10, 80, 75, 24))
         self.pushButton.setObjectName("pushButton")
@@ -528,26 +520,6 @@ class Ui_ReticulumGUI(object):
         for port, desc, hwid in sorted(ports):
             self.descriptionText.appendPlainText("{}: {} [{}]\n".format(port, desc, hwid))
         os.system("rnodeconf --autoinstall")
-
-
-class LoadWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        layout = QVBoxLayout()
-        self.label = QLabel("Load Window")
-        layout.addWidget(self.label)
-        self.setLayout(layout)
-
-
-class LoadDrop(QtWidgets.QToolButton):
-    def __init__(self, parent=None):
-        ''' Constructor '''
-        super(LoadDrop, self).__init__(parent)
-        self.setPopupMode(self.ToolButtonPopupMode.MenuButtonPopup)
-        self.triggered.connect(self.setDefaultAction)
-
-        return None
-
 
 if __name__ == "__main__":
     import sys
