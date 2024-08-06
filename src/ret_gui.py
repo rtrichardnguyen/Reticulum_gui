@@ -474,22 +474,18 @@ class Ui_ReticulumGUI(object):
             return
 
         if profile_name:
-            # Remove the profile from the dictionary
             if profile_name in self.profile_list:
                 del self.profile_list[profile_name]
 
-            # Rewrite the profiles.txt file without the deleted profile
             with open("../profiles.txt", "w") as saves:
                 for name, profile in self.profile_list.items():
                     saves.write(
                         f"{name}, {profile.is_transport}, {profile.frequency}, {profile.spreading_factor}, {profile.coding_rate}, {profile.bandwidth}, {profile.transmit_power}\n")
 
-            # Remove the profile from the drop-down list
             index = self.loadDropDown.findText(profile_name)
             if index != -1:
                 self.loadDropDown.removeItem(index)
 
-            # Optionally, clear the fields if the deleted profile was selected
             self.clear_fields()
             self.descriptionText.appendPlainText(
                 f"Profile '{profile_name}' deleted successfully.\n")
