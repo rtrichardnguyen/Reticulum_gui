@@ -332,15 +332,13 @@ class Ui_ReticulumGUI(object):
             print(transmit_power)
 
             if frequency == '2.4 GHz*':
-                frequency = 240000000000  # correct this
+                frequency = 2412000000
             elif frequency == '433 MHz':
-                frequency = 433000000  # correct this
+                frequency = 433920000
             elif frequency == '868 MHz':
                 frequency = 867200000
             elif frequency == '915 MHz':
-                frequency = 915000000  # correct this
-            else:
-                frequency = int(re.search('[0-9]{3}', frequency).group())
+                frequency = 915000000
 
         except:
             self.descriptionText.appendPlainText(
