@@ -386,7 +386,7 @@ class Ui_ReticulumGUI(object):
 
     def load_profiles(self, list):
 
-        saves = open("../profiles.txt", "r")
+        saves = open("../.profiles.txt", "r")
         profiles = saves.readlines()
         for x in profiles:
             image = x.split(", ")
